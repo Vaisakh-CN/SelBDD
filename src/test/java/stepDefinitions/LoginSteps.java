@@ -36,6 +36,7 @@ public class LoginSteps {
         // Check for successful login
     	driver.findElement(By.id("login-button")).click();
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    	driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(10));
     			wait.until(d -> d.findElement(By.className("title")).isDisplayed());
 
     	
