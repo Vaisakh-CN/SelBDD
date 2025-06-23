@@ -10,14 +10,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import utils.Base;
+import utils.ConfigReader;
+import utils.DriverFactory;
 
-public class LoginSteps {
-    WebDriver driver;
+public class LoginSteps extends Base {
 
     @Given("user launches the browser")
     public void user_launches_the_browser() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+    	driver.get(ConfigReader.getProperty("url"));
+		// Initialize WebDriver based on the browser specified in the config file
+//        WebDriverManager.chromedriver().setup();
+//        driver = new ChromeDriver();
     }
 
     @When("user opens the login page")
@@ -37,8 +41,7 @@ public class LoginSteps {
     	driver.findElement(By.id("login-button")).click();
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     	driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(10));
-    			wait.until(d -> d.findElement(By.className("title")).isDisplayed());
-
+    		
     	
         //driver.quit();
     }

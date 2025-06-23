@@ -1,0 +1,21 @@
+package utils;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import org.openqa.selenium.WebDriver;
+
+public class Base {
+    public static WebDriver driver = DriverFactory.initDriver();
+    public static Properties prop;
+
+    public static void loadConfig() {
+        try {
+            prop = new Properties();
+            FileInputStream ip = new FileInputStream("src/test/resources/Config.properties");
+            prop.load(ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
