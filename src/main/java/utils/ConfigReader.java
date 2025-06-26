@@ -13,14 +13,15 @@ public class ConfigReader {
              baseProps = new Properties();
             FileInputStream baseFis = new FileInputStream("src/test/resources/Config.properties");
             baseProps.load(baseFis);
-System.out.println("===================================================================");
             // Step 2: Read environment from base config
             String env = baseProps.getProperty("env"); // e.g., "qa", "dev", etc.
+            System.out.println(baseProps.toString() + "==================++++++++======");
 
             // Step 3: Load env-specific config with fallback to baseProps
             props = new Properties(baseProps);
             FileInputStream envFis = new FileInputStream("src/test/resources/" + env + ".properties");
             props.load(envFis);
+            System.out.println(props.toString() + "==================++++++++======");
 
         } catch (IOException e) {
             e.printStackTrace();
