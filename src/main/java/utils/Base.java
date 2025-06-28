@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 
-public class Base {
-    public static WebDriver driver = DriverFactory.initDriver();
+public class Base extends DriverFactory {
+ 
     public static Properties prop;
 
     public static void loadConfig() {
