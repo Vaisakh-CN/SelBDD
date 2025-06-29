@@ -8,10 +8,10 @@ package pages;
 	import org.openqa.selenium.support.FindBy;
 	import org.openqa.selenium.support.PageFactory;
 
-	public class WindowsHandle {
+	public class WindowsHandlePage {
 	    WebDriver driver;
 
-	    public WindowsHandle (WebDriver driver) {
+	    public WindowsHandlePage (WebDriver driver) {
 	        this.driver = driver;
 	        PageFactory.initElements(driver, this);
 	    }
