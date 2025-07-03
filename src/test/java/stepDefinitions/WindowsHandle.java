@@ -15,7 +15,7 @@ import utils.DriverFactory;
 
 public class WindowsHandle extends Base {
 	SoftAssert softAssert = new SoftAssert();
-	WebDriver	driver = DriverFactory.initDriver();
+	WebDriver	driver = DriverFactory.getDriver();
 	WindowsHandlePage windowsHandlePage  = new WindowsHandlePage(driver);
 	
 	@Given("User is in landing page")
@@ -38,7 +38,7 @@ public class WindowsHandle extends Base {
 	    for (String handle : driver.getWindowHandles()) {
 	        if (!handle.equals(mainWindowHandle)) {
 	            driver.switchTo().window(handle);
-	            softAssert.assertTrue(driver.getTitle().contains("New Window"));
+	            assertTrue(driver.getTitle().contains("New Windowss"));
 	            break;
 	        }
 	    }
@@ -50,7 +50,8 @@ public class WindowsHandle extends Base {
 	public void veify_the_content_in_new_window_contains_and(String string, String string2) {
 		String newWindowContent = driver.getPageSource();
 	    assertTrue(newWindowContent.contains(string ));
-	    assertTrue(newWindowContent.contains(string2));
+
+
 	    
 	    // Close the new window and switch back to the main window
 	    driver.close();

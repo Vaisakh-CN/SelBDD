@@ -34,7 +34,8 @@ public class Hooks extends DriverFactory {
             TakesScreenshot ts = (TakesScreenshot) getDriver();
             byte[] src = ts.getScreenshotAs(OutputType.BYTES);
             scenario.attach(src, "image/png", "screenshot");
-            scenarioTest.fail("Test Failed: " + scenario.getName());
+            String FinalScreenShot = Base64.getEncoder().encodeToString(src);
+            scenarioTest.fail("Test Failed: " + scenario.getName()).addScreenCaptureFromBase64String(FinalScreenShot, "Success Screenshot");
         } else {
         	TakesScreenshot ts = (TakesScreenshot) getDriver();
             byte[] src = ts.getScreenshotAs(OutputType.BYTES);
