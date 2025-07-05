@@ -7,6 +7,16 @@ import org.openqa.selenium.WebDriver;
 
 public class Base extends DriverFactory {
  
+	
+	private static ThreadLocal<String> browserName = new ThreadLocal<>();
+
+    public static void setBrowserName(String browser) {
+        browserName.set(browser);
+    }
+
+    public static String getBrowserName() {
+        return browserName.get();
+    }
     public static Properties prop;
 
     public static void loadConfig() {
