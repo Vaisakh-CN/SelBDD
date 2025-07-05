@@ -1,5 +1,4 @@
 package utils;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,34 +6,36 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
 public class DriverFactory {
-    private static WebDriver driver;
+	private static ThreadLocal<WebDriver> tDriver = new ThreadLocal<>();
 
     public static WebDriver initDriver() {
-        if (driver == null) {
-            String browser = ConfigReader.getProperty("browser").toLowerCase();
+        if (tDriver.get() == null) {
+        //    String browser = ConfigReader.getProperty("browser").toLowerCase();
+          // browser = System.getProperty("browser", "chrome");
+        				String browser = Base.getBrowserName().toLowerCase(); // Get browser name from Base class
 
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
+                    tDriver.set(new ChromeDriver());
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
+                    tDriver.set(new FirefoxDriver());
                     break;
                 case "edge":
                     WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
+                    tDriver.set(new EdgeDriver());
                     break;
                 default:
                     throw new RuntimeException("Unsupported browser: " + browser);
             }
 
-            driver.manage().window().maximize();
+            tDriver.get().manage().window().maximize();
            // driver.get(ConfigReader.getProperty("url")); // Load URL from env file
         }
 
-        return driver;
+        return tDriver.get();
     }
 
     public static WebDriver getDriver() {
@@ -42,9 +43,10 @@ public class DriverFactory {
     }
 
     public static void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
-        }
+      //  if (tDriver.get() != null) {
+        	getDriver().quit();
+        	tDriver.set(null); 
+            tDriver.remove();
+        //}
     }
 }
